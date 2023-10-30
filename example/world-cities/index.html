@@ -9,16 +9,16 @@
 <div id="globeViz"></div>
 
 <script>
-  fetch('../datasets/ne_110m_populated_places_simple.geojson').then(res => res.json()).then(places => {
+  fetch('http://localhost:8080/ubicacion/all').then(res => res.json()).then(ubicaciones => {
     Globe()
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
       .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-      .labelsData(places.features)
-      .labelLat(d => d.properties.latitude)
-      .labelLng(d => d.properties.longitude)
-      .labelText(d => d.properties.name)
-      .labelSize(d => Math.sqrt(d.properties.pop_max) * 4e-4)
-      .labelDotRadius(d => Math.sqrt(d.properties.pop_max) * 4e-4)
+      .labelsData(ubicaciones)
+      .labelLat(u => u.coordenada.latitud)
+      .labelLng(u => u.coordenada.longitud)
+      .labelText(u => u.nombre)
+      .labelSize(d => 0.1)
+      .labelDotRadius(d => 0.1)
       .labelColor(() => 'rgba(255, 165, 0, 0.75)')
       .labelResolution(2)
     (document.getElementById('globeViz'))
